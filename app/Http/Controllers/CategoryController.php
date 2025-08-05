@@ -15,7 +15,7 @@ class CategoryController extends Controller
     {
         //
 
-        $categories= Category::with('products')->get();
+        $categories= Category::with('products')->latest()->simplePaginate(2);
         return view('categories.index',  ['categories' => $categories]);
     }
 
@@ -45,7 +45,7 @@ class CategoryController extends Controller
 
         
 
-        return redirect('/categories'); 
+        return redirect('/categories')->with('success', 'Item created successfully'); 
 
 
     }
@@ -87,7 +87,7 @@ class CategoryController extends Controller
 
         $category->update($attributes); 
 
-        return redirect('/categories');
+        return redirect('/categories')->with('success', 'Item updated successfully');
 
    
     //  $job->update([
@@ -110,6 +110,6 @@ class CategoryController extends Controller
         //
         $category->delete();
 
-        return redirect('/categories');
+        return redirect('/categories')->with('success', 'Successfully deleted item');
     }
 }

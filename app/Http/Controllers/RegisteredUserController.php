@@ -49,7 +49,7 @@ class RegisteredUserController extends Controller
         //login the user 
         Auth::login($user);
 
-        return redirect('/products');
+        return redirect('/products')->with('success', 'Account created successfully');
 
         //return redirect 
     }
@@ -97,7 +97,7 @@ class RegisteredUserController extends Controller
 
         $user->delete();
 
-        return redirect('/all-users'); 
+        return redirect('/all-users')->with('success', 'Successfully deleted user'); 
 
 
     }

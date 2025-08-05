@@ -1,5 +1,11 @@
 <x-layout>
 
+    @if (session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <x-heading>
         Categories
     </x-heading>
@@ -7,22 +13,52 @@
     <p class="text-center text-sm text-gray-900 italic mt-2">
         Browse through the available categories.
     </p>
+    
 
     <hr class="my-6 border-gray-900/20">
 
-<x-cards.layout>
+    @if ($categories->count())
+      <div class="px-6 py-4"> <!-- Adds spacing from browser edges -->
+        <table class="w-full max-w-7xl mx-auto text-left  border-separate border-spacing-y-4">
+            <thead>
+                <tr class="text-gray-600 font-semibold">
+                    <th class="px-4 py-2">Category Name</th>
+                    <th class="px-4 py-2">Description</th>
+                   
+                    <th class="px-4 py-2">More</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-transparent">
+                @foreach ($categories as $category)
+                    <tr class="bg-white rounded-xl shadow-md hover:shadow-xl transition cursor-pointer"  onclick="window.location='/categories/{{ $category->id }}';">
+                        <td class="px-4 py-3">{{ $category->name }}</td>
+                        <td class="px-4 py-3">{{ $category->description }}</td>
     
-    @foreach ($categories as $category)
-           <x-cards.frame>
-                <x-cards.action_row :items="$categories" :item="$category">
+                        <td class="px-4 py-3">
+                           
+                        
+                             <x-display.action route="/categories/{{$category->id}}/edit">Edit</x-display.action>
+                            <x-display.delete_item route="/categories/{{$category->id}}" :item="$category">Delete</x-display.action>
+                         
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
-                    <a href="/categories/{{ $category->id }}" class="text-red-500  text-xs font-bold hover:text-gray-900">Action</a>
-                </x-cards.action_row>
-                
-                <x-cards.description :item="$category"></x-cards.description>
-           </x-cards.frame>
-        @endforeach
-</x-cards.layout>
+    @else
+    <p class="text-center">There are no content to display </p>
+        
+    @endif
+
+
+
+   <div class="px-20">
+     {{ $categories->links() }}
+
+   </div>
+
 
 
 </x-layout>

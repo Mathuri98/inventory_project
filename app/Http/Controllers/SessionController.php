@@ -57,10 +57,10 @@ class SessionController extends Controller
 
         if(Auth::user()->is_admin){
 
-            return redirect('/categories');
+            return redirect('/categories')->with('success', 'Successfully logged in');
         }
         else{
-            return redirect('/products');
+            return redirect('/products')->with('success', 'Successfully logged in');
         }
 
         
@@ -100,6 +100,6 @@ class SessionController extends Controller
     {
         //
         Auth::logout();
-        return redirect('/login');
+        return redirect('/login')->with('success', 'Logged out');
     }
 }

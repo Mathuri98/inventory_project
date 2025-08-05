@@ -9,7 +9,7 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 {{-- Generic layout file for both users and admins  --}}
 </head>
-<body class="pb-10 bg-gray-100">
+<body class="pb-10 bg-gray-100 ">
 
 
   

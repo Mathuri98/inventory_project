@@ -18,6 +18,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
   Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
   //to show all products from all users 
   Route::get('/all-products', [ProductController::class, 'showAll']);
+
   //to show all registered users 
   Route::get('/all-users', [RegisteredUserController::class, 'showAll']);
   //to delete a user from admin view 
@@ -28,8 +29,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth'])->group(function () {
   //to delete a product from admin view or user view . 
   Route::delete('/products/{product}', [ProductController::class, 'destroy']);
-  Route::get('/register', [RegisteredUserController::class, 'create']);
-  Route::post('/register', [RegisteredUserController::class, 'store']);
+ 
   Route::post('/logout', [SessionController::class, 'destroy']);
   Route::get('/products', [ProductController::class, 'index']);
   Route::get('/products/create', [ProductController::class, 'create']);
@@ -47,4 +47,7 @@ Route::middleware(['guest'])->group(function () {
   Route::get('/login', [SessionController::class, 'create'])->name('login');
 
   Route::post('/login', [SessionController::class, 'store']);
+
+   Route::get('/register', [RegisteredUserController::class, 'create']);
+  Route::post('/register', [RegisteredUserController::class, 'store']);
 });

@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name')->unique();
             $table->string('price');
             $table->string('description');
@@ -23,7 +22,7 @@ return new class extends Migration
             $table->boolean('active')->default(true);
             $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-
+            $table->timestamps();
         });
     }
 

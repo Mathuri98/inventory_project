@@ -20,7 +20,18 @@ class ProductController extends Controller
          
         // $products = Product::with(['category', 'user'])->get();
         //not getting all the products but geting the products belonging to this user. 
-        $products= Auth::user()->products; 
+        // $products= Auth::user()->products; unconventional way 
+
+
+        //recommended approach to get the products associated with the user. 
+        $products= Product::with(['category', 'user'])->whereBelongsTo(Auth::user())->get();
+
+//        
+// $products = Product::with(['category', 'user'])
+//     ->where('user_id', Auth::id())
+//     ->get();
+
+
 
         return view('products.index', [
             'products'=> $products
@@ -61,7 +72,7 @@ class ProductController extends Controller
 
         
 
-        return redirect('/products');
+        return redirect('/products')->with('success', 'Item created successfull');
 
 
     }
@@ -120,7 +131,7 @@ class ProductController extends Controller
 
         $product->update($attributes);
 
-        return redirect('/products');
+        return redirect('/products')->with('success', 'Item updated successfully');
 
 
 
@@ -135,6 +146,17 @@ class ProductController extends Controller
         //
 
         $product->delete(); 
-        return redirect('/all-products'); 
+        if(Auth::user()->is_admin){
+            return redirect('/categories')->with('success', 'Successully deleted item-Admin'); 
+
+
+        }
+        return redirect('/products')->with('success', 'Successfully deleted item'); 
     }
+
+
+
+
+
+
 }
