@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
 
        Product::factory(2)->create([
         'user_id' => 2,
-    'category_id' => 1,
+        'category_id' => 1,
        ]);
     }
 }
